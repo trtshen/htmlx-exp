@@ -1,0 +1,7 @@
+<div class="note" id="note-{{ note.id }}">
+    <form hx-put="/notes/{{ note.id }}" hx-target="#note-{{ note.id }}" hx-swap="outerHTML">
+        <textarea name="content" rows="3" required>{{ note.content }}</textarea>
+        <button type="submit" class="button">Save</button>
+        <button type="button" class="button" hx-get="/notes/{{ note.id }}" hx-target="#note-{{ note.id }}" hx-swap="outerHTML">Cancel</button>
+    </form>
+</div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Notes with HTMX</title>
+    <!-- HTMX CDN -->
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        .note {
+            background: #f9f9f9;
+            border-left: 3px solid #2980b9;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 3px;
+            position: relative;
+        }
+        .note-content {
+            margin-right: 80px;
+            white-space: pre-wrap;
+        }
+        .note-buttons {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        .button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            margin-left: 0.3rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .button:hover {
+            background: #2980b9;
+        }
+        .button.delete {
+            background: #e74c3c;
+        }
+        .button.delete:hover {
+            background: #c0392b;
+        }
+        textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            resize: vertical;
+        }
+        .add-note {
+            margin-bottom: 2rem;
+        }
+        .timestamp {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Notes with HTMX</h1>
+    
+    <div class="add-note">
+        <form hx-post="/notes" hx-target="#notes-list" hx-swap="afterbegin">
+            <textarea name="content" placeholder="Write a new note..." rows="3" required></textarea>
+            <button type="submit" class="button">Add Note</button>
+        </form>
+    </div>
+    
+    <div id="notes-list">
+        {% for note in notes %}
+            {% include 'partials/note.html' %}
+        {% endfor %}
+    </div>
+</body>
+</html>
